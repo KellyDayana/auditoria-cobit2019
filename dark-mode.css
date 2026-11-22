@@ -1,0 +1,512 @@
+/* ============================================
+   MODO OSCURO - Dark Mode - VERSIÓN CORREGIDA
+   ============================================ */
+
+/* Variables de colores para modo oscuro */
+:root {
+    --bg-primary-light: #ffffff;
+    --bg-secondary-light: #f9fafb;
+    --text-primary-light: #111827;
+    --text-secondary-light: #6b7280;
+    --border-light: #e5e7eb;
+    
+    --bg-primary-dark: #1a1a2e;
+    --bg-secondary-dark: #16213e;
+    --text-primary-dark: #eaeaea;
+    --text-secondary-dark: #a0aec0;
+    --border-dark: #2d3748;
+}
+
+/* Modo claro (por defecto) */
+body {
+    background: linear-gradient(to bottom right, #f9fafb 0%, #e5e7eb 100%);
+    color: var(--text-primary-light);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ============================================
+   MODO OSCURO - Estilos Base
+   ============================================ */
+
+body.dark-mode {
+    background: linear-gradient(to bottom right, #0f0f23 0%, #1a1a2e 100%);
+    color: #e5e7eb;
+}
+
+/* Tarjetas en modo oscuro */
+body.dark-mode .card-glass {
+    background: rgba(22, 33, 62, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .bg-white {
+    background-color: #16213e !important;
+}
+
+body.dark-mode .bg-gray-50 {
+    background-color: #1a1a2e !important;
+}
+
+body.dark-mode .bg-gray-100 {
+    background-color: #0f0f23 !important;
+}
+
+body.dark-mode .bg-gray-200 {
+    background-color: #2d3748 !important;
+}
+
+body.dark-mode .bg-gray-300 {
+    background-color: #4a5568 !important;
+}
+
+/* ============================================
+   TEXTOS - Contraste correcto
+   ============================================ */
+
+/* Títulos principales */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode h4,
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: #f1f5f9 !important;
+}
+
+/* Texto general */
+body.dark-mode p {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode span {
+    color: #cbd5e1 !important;
+}
+
+/* Textos grises - Convertir a claros */
+body.dark-mode .text-gray-900,
+body.dark-mode .text-gray-800,
+body.dark-mode .text-gray-700 {
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .text-gray-600,
+body.dark-mode .text-gray-500 {
+    color: #cbd5e1 !important;
+}
+
+body.dark-mode .text-gray-400 {
+    color: #9ca3af !important;
+}
+
+/* Font weights */
+body.dark-mode .font-bold,
+body.dark-mode .font-semibold {
+    color: #f1f5f9 !important;
+}
+
+/* ============================================
+   CAJAS DE COLOR - Mantener texto oscuro
+   ============================================ */
+
+/* Cajas con fondos claros mantienen texto oscuro */
+body.dark-mode .bg-gradient-to-r.from-blue-50 h3,
+body.dark-mode .bg-gradient-to-r.from-blue-50 p,
+body.dark-mode .bg-gradient-to-r.from-blue-50 span,
+body.dark-mode .bg-gradient-to-r.from-purple-50 h3,
+body.dark-mode .bg-gradient-to-r.from-purple-50 p,
+body.dark-mode .bg-gradient-to-r.from-purple-50 span,
+body.dark-mode .bg-gradient-to-r.from-green-50 h3,
+body.dark-mode .bg-gradient-to-r.from-green-50 p,
+body.dark-mode .bg-gradient-to-r.from-green-50 span,
+body.dark-mode .bg-gradient-to-r.from-yellow-50 h3,
+body.dark-mode .bg-gradient-to-r.from-yellow-50 p,
+body.dark-mode .bg-gradient-to-r.from-yellow-50 span,
+body.dark-mode .bg-gradient-to-r.from-pink-50 h3,
+body.dark-mode .bg-gradient-to-r.from-pink-50 p,
+body.dark-mode .bg-gradient-to-r.from-pink-50 span,
+body.dark-mode .bg-gradient-to-r.from-orange-50 h3,
+body.dark-mode .bg-gradient-to-r.from-orange-50 p,
+body.dark-mode .bg-gradient-to-r.from-orange-50 span {
+    color: #1f2937 !important;
+}
+
+/* Específicamente para MEA y otras cajas rosa/beige */
+body.dark-mode .bg-gradient-to-r.from-pink-100,
+body.dark-mode .bg-gradient-to-r.from-pink-50,
+body.dark-mode .bg-gradient-to-r.to-pink-50,
+body.dark-mode .bg-gradient-to-r.to-pink-100 {
+    background: rgba(236, 72, 153, 0.25) !important;
+}
+
+body.dark-mode .bg-gradient-to-r.from-pink-100 *,
+body.dark-mode .bg-gradient-to-r.from-pink-50 *,
+body.dark-mode .bg-gradient-to-r.to-pink-50 *,
+body.dark-mode .bg-gradient-to-r.to-pink-100 * {
+    color: #1f2937 !important;
+}
+
+/* ============================================
+   COLORES ESPECÍFICOS
+   ============================================ */
+
+body.dark-mode .text-blue-600,
+body.dark-mode .text-blue-700,
+body.dark-mode .text-blue-800,
+body.dark-mode .text-blue-900 {
+    color: #60a5fa !important;
+}
+
+body.dark-mode .text-purple-600,
+body.dark-mode .text-purple-700,
+body.dark-mode .text-purple-800,
+body.dark-mode .text-purple-900 {
+    color: #c084fc !important;
+}
+
+body.dark-mode .text-green-600,
+body.dark-mode .text-green-700,
+body.dark-mode .text-green-800,
+body.dark-mode .text-green-900 {
+    color: #4ade80 !important;
+}
+
+body.dark-mode .text-red-600,
+body.dark-mode .text-red-700,
+body.dark-mode .text-red-800,
+body.dark-mode .text-red-900 {
+    color: #f87171 !important;
+}
+
+body.dark-mode .text-yellow-600,
+body.dark-mode .text-yellow-700,
+body.dark-mode .text-yellow-800,
+body.dark-mode .text-yellow-900 {
+    color: #fbbf24 !important;
+}
+
+body.dark-mode .text-indigo-600,
+body.dark-mode .text-indigo-700 {
+    color: #818cf8 !important;
+}
+
+body.dark-mode .text-orange-600,
+body.dark-mode .text-orange-700,
+body.dark-mode .text-orange-800 {
+    color: #fb923c !important;
+}
+
+/* ============================================
+   BORDES
+   ============================================ */
+
+body.dark-mode .border-gray-200 {
+    border-color: #2d3748 !important;
+}
+
+body.dark-mode .border-gray-300 {
+    border-color: #4a5568 !important;
+}
+
+body.dark-mode .border-green-200 {
+    border-color: #10b981 !important;
+}
+
+/* ============================================
+   INPUTS Y FORMULARIOS
+   ============================================ */
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+    background-color: #0f0f23 !important;
+    color: #f1f5f9 !important;
+    border-color: #2d3748 !important;
+}
+
+body.dark-mode input:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    border-color: #3b82f6 !important;
+    background-color: #1a1a2e !important;
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #6b7280 !important;
+}
+
+body.dark-mode option {
+    background-color: #1a1a2e !important;
+    color: #e5e7eb !important;
+}
+
+body.dark-mode label {
+    color: #f1f5f9 !important;
+}
+
+/* ============================================
+   NAVBAR
+   ============================================ */
+
+body.dark-mode nav.glass {
+    background: rgba(15, 15, 35, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode nav h1 {
+    color: #93c5fd !important;
+}
+
+body.dark-mode nav p.text-gray-500 {
+    color: #9ca3af !important;
+}
+
+/* ============================================
+   BOTONES
+   ============================================ */
+
+body.dark-mode .bg-gray-200 {
+    background-color: #2d3748 !important;
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .bg-gray-200:hover {
+    background-color: #4a5568 !important;
+}
+
+body.dark-mode button {
+    color: inherit;
+}
+
+/* ============================================
+   MÓDULOS EN SIDEBAR
+   ============================================ */
+
+body.dark-mode .module-item {
+    background-color: #16213e;
+    color: #f1f5f9;
+}
+
+body.dark-mode .module-item:hover {
+    background-color: #1a1a2e;
+}
+
+body.dark-mode .module-item span {
+    color: #f1f5f9 !important;
+}
+
+/* ============================================
+   SHADOWS
+   ============================================ */
+
+body.dark-mode .shadow-sm {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .shadow-md {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .shadow-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .shadow-xl {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================
+   PARTÍCULAS
+   ============================================ */
+
+body.dark-mode #particles {
+    opacity: 0.6;
+}
+
+/* ============================================
+   TOGGLE SWITCH
+   ============================================ */
+
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.theme-switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+
+.theme-switch input {
+    display: none;
+}
+
+.slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    background-color: #fff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: 0.4s;
+    width: 26px;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    transition: opacity 0.3s;
+}
+
+.slider .icon-sun {
+    left: 8px;
+    opacity: 0;
+}
+
+.slider .icon-moon {
+    right: 8px;
+    opacity: 1;
+}
+
+input:checked + .slider .icon-sun {
+    opacity: 1;
+}
+
+input:checked + .slider .icon-moon {
+    opacity: 0;
+}
+
+/* ============================================
+   SCROLLBAR
+   ============================================ */
+
+body.dark-mode::-webkit-scrollbar-track {
+    background: #0f0f23;
+}
+
+body.dark-mode::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #1e40af 0%, #3b82f6 100%);
+}
+
+/* ============================================
+   FONDOS DE ALERTA
+   ============================================ */
+
+body.dark-mode .bg-blue-50 {
+    background-color: rgba(30, 64, 175, 0.15) !important;
+}
+
+body.dark-mode .bg-green-50 {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+body.dark-mode .bg-yellow-50 {
+    background-color: rgba(245, 158, 11, 0.15) !important;
+}
+
+body.dark-mode .bg-red-50 {
+    background-color: rgba(239, 68, 68, 0.15) !important;
+}
+
+body.dark-mode .bg-emerald-50 {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+}
+
+body.dark-mode .bg-purple-50 {
+    background-color: rgba(168, 85, 247, 0.15) !important;
+}
+
+body.dark-mode .bg-indigo-50 {
+    background-color: rgba(99, 102, 241, 0.15) !important;
+}
+
+body.dark-mode .bg-pink-50 {
+    background-color: rgba(236, 72, 153, 0.15) !important;
+}
+
+body.dark-mode .bg-orange-50 {
+    background-color: rgba(251, 146, 60, 0.15) !important;
+}
+
+/* ============================================
+   MODAL DE INTEGRANTES
+   ============================================ */
+
+body.dark-mode #teamModal .bg-white {
+    background-color: #1e293b !important;
+}
+
+body.dark-mode #teamModal .dark\:bg-gray-800 {
+    background-color: #0f172a !important;
+}
+
+/* Mantener fondos claros y texto oscuro en tarjetas del modal */
+body.dark-mode #teamModal .bg-gradient-to-r {
+    /* Mantener el gradiente original */
+}
+
+body.dark-mode #teamModal .bg-gradient-to-r p,
+body.dark-mode #teamModal .bg-gradient-to-r span,
+body.dark-mode #teamModal .bg-gradient-to-r .font-semibold {
+    color: #1f2937 !important;
+}
+
+/* ============================================
+   GRÁFICOS
+   ============================================ */
+
+body.dark-mode canvas {
+    filter: brightness(0.9);
+}
+
+/* ============================================
+   GRADIENTES CON TEXTO
+   ============================================ */
+
+body.dark-mode .gradient-primary.bg-clip-text {
+    background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* ============================================
+   TRANSICIONES
+   ============================================ */
+
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.no-transition {
+    transition: none !important;
+}

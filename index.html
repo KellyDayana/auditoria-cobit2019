@@ -1,0 +1,2300 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría COBIT 2019 - Sistema Profesional de Gestión</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS - Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Intro.js - Tours -->
+    <link href="https://cdn.jsdelivr.net/npm/intro.js@7.2.0/minified/introjs.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/intro.js@7.2.0/intro.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- SheetJS - Excel -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    
+    <!-- GSAP - Advanced Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- html2pdf para exportar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <!-- Archivos personalizados -->
+    <link rel="stylesheet" href="dark-mode.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        /* Gradientes personalizados - Paleta profesional */
+        .gradient-primary {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+        }
+        
+        .gradient-secondary {
+            background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+        }
+        
+        .gradient-success {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+        }
+        
+        .gradient-dark {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+        }
+        
+        .gradient-warning {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        }
+        
+        .gradient-danger {
+            background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        /* Animaciones personalizadas */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .pulse-slow {
+            animation: pulse-slow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        .shimmer {
+            background: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+            background-size: 1000px 100%;
+            animation: shimmer 2s linear infinite;
+        }
+        
+        /* Efectos de hover mejorados */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Estilo de botones mejorado */
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        /* Progress ring animation */
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #1e40af 0%, #3b82f6 100%);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1e40af;
+        }
+        
+        /* Efecto de partículas en el fondo */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        /* Tarjetas con efecto de cristal */
+        .card-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Inputs mejorados */
+        .input-modern {
+            transition: all 0.3s ease;
+        }
+        
+        .input-modern:focus {
+            transform: scale(1.02);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+        
+        /* Tabs con animación */
+        .tab-active {
+            position: relative;
+        }
+        
+        .tab-active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        
+        /* Efecto de typing */
+        .typing::after {
+            content: '|';
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        /* Modal mejorado */
+        .modal-backdrop {
+            backdrop-filter: blur(5px);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Stats counter animation */
+        .counter {
+            font-variant-numeric: tabular-nums;
+        }
+        
+        /* Skeleton loader */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Checkbox personalizado */
+        .custom-checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #667eea;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-checkbox:checked {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #764ba2;
+        }
+        
+        .custom-checkbox:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+        }
+        
+        /* Notification toast */
+        .toast {
+            animation: slideInRight 0.5s ease, slideOutRight 0.5s ease 2.5s;
+        }
+        
+        @keyframes slideInRight {
+            from { transform: translateX(400px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes slideOutRight {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(400px); opacity: 0; }
+        }
+        
+        /* Badge con pulso */
+        .badge-pulse {
+            position: relative;
+        }
+        
+        .badge-pulse::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: inherit;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        /* Stepper moderno */
+        .stepper-line {
+            position: absolute;
+            top: 24px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: #e5e7eb;
+            z-index: -1;
+        }
+        
+        .stepper-line-active {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+        }
+        
+        /* Tooltip mejorado */
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 8px 12px;
+            background: #1F4E78;
+            color: white;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-50%) translateY(-5px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+        
+        /* Botones de idioma */
+        .lang-btn {
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .lang-btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Dark mode en menú de descargas */
+        body.dark-mode #downloadMenu {
+            background-color: #16213e;
+            color: #eaeaea;
+        }
+        
+        body.dark-mode #downloadMenu a:hover {
+            background-color: #1a1a2e;
+        }
+    </style>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Paleta profesional de auditoría - Azules corporativos
+                        primary: '#1e40af',      // Azul confiable
+                        secondary: '#3b82f6',    // Azul brillante
+                        accent: '#0ea5e9',       // Azul cielo
+                        dark: '#1e3a8a',         // Azul oscuro profesional
+                        success: '#10b981',      // Verde aprobado
+                        warning: '#f59e0b',      // Ámbar alerta
+                        danger: '#ef4444',       // Rojo crítico
+                        info: '#06b6d4'          // Cyan informativo
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-gray-50 to-gray-100 min-h-screen">
+    
+    <!-- Partículas de fondo -->
+    <canvas class="particles" id="particles"></canvas>
+    
+    <!-- Navegación superior fija -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass shadow-lg" data-intro="Esta es la barra de navegación principal. Desde aquí puedes acceder a todas las funciones." data-step="1">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3" data-aos="fade-right">
+                    <div class="w-10 h-10 gradient-primary rounded-lg flex items-center justify-center float-animation">
+                        <i class="fas fa-shield-alt text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold gradient-primary bg-clip-text text-transparent">
+                            Auditoría COBIT 2019
+                        </h1>
+                        <p class="text-xs text-gray-500">Sistema Profesional de Gestión</p>
+                    </div>
+                    
+                    <!-- Botón Integrantes -->
+                    <button onclick="showTeamModal()" class="ml-4 px-4 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg hover:shadow-lg transition-all hover-lift text-sm font-medium flex items-center space-x-2" title="Ver integrantes del grupo">
+                        <i class="fas fa-users"></i>
+                        <span class="hidden lg:inline">Integrantes</span>
+                    </button>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <!-- Selector de idioma -->
+                    <div class="hidden md:flex items-center space-x-2 bg-white rounded-full px-3 py-2 shadow">
+                        <button onclick="changeLanguage('es')" class="lang-btn px-3 py-1 rounded-full text-sm font-semibold transition-all" id="lang-es">
+                            🇪🇸 ES
+                        </button>
+                        <button onclick="changeLanguage('en')" class="lang-btn px-3 py-1 rounded-full text-sm font-semibold transition-all" id="lang-en">
+                            🇬🇧 EN
+                        </button>
+                    </div>
+                    
+                    <!-- Toggle modo oscuro -->
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch" title="Cambiar tema">
+                            <input type="checkbox" id="darkModeToggle" onchange="toggleDarkMode()">
+                            <div class="slider">
+                                <span class="icon icon-sun">☀️</span>
+                                <span class="icon icon-moon">🌙</span>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <!-- Progreso general -->
+                    <div class="hidden md:flex items-center space-x-2" data-intro="Aquí verás tu progreso general en tiempo real." data-step="2">
+                        <div class="flex items-center space-x-2 bg-white rounded-full px-4 py-2 shadow">
+                            <svg class="w-8 h-8">
+                                <circle cx="16" cy="16" r="14" stroke="#e5e7eb" stroke-width="3" fill="none"></circle>
+                                <circle id="progressCircle" cx="16" cy="16" r="14" stroke="url(#gradient)" stroke-width="3" fill="none" 
+                                        stroke-dasharray="88" stroke-dashoffset="88" class="progress-ring-circle"></circle>
+                                <defs>
+                                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#667eea" />
+                                        <stop offset="100%" style="stop-color:#764ba2" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <span class="text-sm font-semibold counter" id="progressText">0%</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Botones de acción -->
+                    <button onclick="startTour()" class="btn-primary px-4 py-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:shadow-lg transition-all" data-tooltip="Iniciar tour guiado">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                    
+                    <button onclick="autoSave()" class="btn-primary px-4 py-2 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:shadow-lg transition-all" data-tooltip="Guardar progreso">
+                        <i class="fas fa-save"></i>
+                    </button>
+                    
+                    <div class="relative" data-intro="Desde este menú puedes descargar tu auditoría en múltiples formatos." data-step="3">
+                        <button id="downloadBtn" class="btn-primary px-4 py-2 gradient-primary text-white rounded-lg hover:shadow-lg transition-all flex items-center space-x-2">
+                            <i class="fas fa-download"></i>
+                            <span class="hidden md:inline">Descargar</span>
+                        </button>
+                        <div id="downloadMenu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl py-2 z-50 dark:bg-gray-800">
+                            <div class="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+                                <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Descargas del Módulo Actual</p>
+                            </div>
+                            <a onclick="downloadEmptySheet()" class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-all">
+                                <i class="fas fa-file text-gray-400 mr-2"></i>
+                                <span class="font-medium">Hoja Vacía</span>
+                                <p class="text-xs text-gray-500 mt-1">Plantilla sin datos</p>
+                            </a>
+                            <a onclick="downloadFilledSheet()" class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-all">
+                                <i class="fas fa-file-alt text-blue-600 mr-2"></i>
+                                <span class="font-medium">Hoja Llena</span>
+                                <p class="text-xs text-gray-500 mt-1">Con datos ingresados</p>
+                            </a>
+                            <a onclick="downloadModulePDF()" class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-all">
+                                <i class="fas fa-file-pdf text-red-600 mr-2"></i>
+                                <span class="font-medium">PDF del Módulo</span>
+                                <p class="text-xs text-gray-500 mt-1">Diseño HTML actual</p>
+                            </a>
+                            
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-2"></div>
+                            <div class="px-4 py-2">
+                                <p class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase">Descargas Completas</p>
+                            </div>
+                            <a onclick="downloadCompleteExcel()" class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-all">
+                                <i class="fas fa-file-excel text-green-600 mr-2"></i>
+                                <span class="font-medium">Excel Completo</span>
+                                <p class="text-xs text-gray-500 mt-1">Todas las 14 hojas</p>
+                            </a>
+                            <a onclick="downloadCompletePDF()" class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer transition-all">
+                                <i class="fas fa-file-pdf text-red-600 mr-2"></i>
+                                <span class="font-medium">PDF Completo</span>
+                                <p class="text-xs text-gray-500 mt-1">Informe profesional</p>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Contenedor principal -->
+    <div class="pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Hero Section -->
+            <div class="mb-12" data-aos="fade-up">
+                <div class="card-glass rounded-2xl p-8 md:p-12 relative overflow-hidden hover-lift">
+                    <div class="absolute top-0 right-0 w-64 h-64 gradient-primary opacity-10 rounded-full -mr-32 -mt-32"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4 gradient-primary bg-clip-text text-transparent">
+                            Sistema de Auditoría COBIT 2019
+                        </h2>
+                        <p class="text-lg text-gray-600 mb-6 max-w-3xl">
+                            Plataforma profesional para la evaluación de capacidad de procesos de I&T y cumplimiento de prácticas de gestión.
+                            Sistema completo con 14 módulos integrados, validación automática y generación de reportes profesionales.
+                        </p>
+                        
+                        <!-- Stats Cards -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+                            <div class="bg-white rounded-xl p-4 shadow hover-lift" data-aos="fade-up" data-aos-delay="100">
+                                <div class="text-3xl font-bold gradient-primary bg-clip-text text-transparent counter" id="stat1">14</div>
+                                <div class="text-sm text-gray-600">Módulos</div>
+                            </div>
+                            <div class="bg-white rounded-xl p-4 shadow hover-lift" data-aos="fade-up" data-aos-delay="200">
+                                <div class="text-3xl font-bold gradient-secondary bg-clip-text text-transparent counter" id="stat2">40</div>
+                                <div class="text-sm text-gray-600">Objetivos COBIT</div>
+                            </div>
+                            <div class="bg-white rounded-xl p-4 shadow hover-lift" data-aos="fade-up" data-aos-delay="300">
+                                <div class="text-3xl font-bold gradient-success bg-clip-text text-transparent counter" id="stat3">5</div>
+                                <div class="text-sm text-gray-600">Dominios</div>
+                            </div>
+                            <div class="bg-white rounded-xl p-4 shadow hover-lift" data-aos="fade-up" data-aos-delay="400">
+                                <div class="text-3xl font-bold text-yellow-500 counter" id="stat4">0</div>
+                                <div class="text-sm text-gray-600">% Completado</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stepper de progreso -->
+            <div class="mb-12" data-intro="Este stepper te muestra en qué paso del proceso te encuentras." data-step="4">
+                <div class="card-glass rounded-2xl p-6" data-aos="fade-up">
+                    <div class="flex justify-between items-center relative">
+                        <div class="stepper-line"></div>
+                        <div class="stepper-line-active" id="stepperProgress" style="width: 0%"></div>
+                        
+                        <!-- Steps -->
+                        <div class="step-item text-center relative z-10" data-step-number="1">
+                            <div class="w-12 h-12 mx-auto rounded-full gradient-primary flex items-center justify-center text-white font-bold shadow-lg mb-2 step-circle">
+                                1
+                            </div>
+                            <p class="text-xs font-medium text-gray-700">Portada</p>
+                        </div>
+                        
+                        <div class="step-item text-center relative z-10" data-step-number="2">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-gray-300 flex items-center justify-center text-white font-bold mb-2 step-circle">
+                                2
+                            </div>
+                            <p class="text-xs font-medium text-gray-500">Contexto</p>
+                        </div>
+                        
+                        <div class="step-item text-center relative z-10" data-step-number="3">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-gray-300 flex items-center justify-center text-white font-bold mb-2 step-circle">
+                                3
+                            </div>
+                            <p class="text-xs font-medium text-gray-500">Factores</p>
+                        </div>
+                        
+                        <div class="step-item text-center relative z-10" data-step-number="4">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-gray-300 flex items-center justify-center text-white font-bold mb-2 step-circle">
+                                4
+                            </div>
+                            <p class="text-xs font-medium text-gray-500">Alcance</p>
+                        </div>
+                        
+                        <div class="step-item text-center relative z-10" data-step-number="5">
+                            <div class="w-12 h-12 mx-auto rounded-full bg-gray-300 flex items-center justify-center text-white font-bold mb-2 step-circle">
+                                5
+                            </div>
+                            <p class="text-xs font-medium text-gray-500">Finalizar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contenedor centrado con max-width -->
+            <div class="max-w-[1800px] mx-auto px-4">
+            
+            <!-- Contenido principal con tabs -->
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                
+                <!-- Sidebar con módulos -->
+                <div class="lg:col-span-1" data-intro="Aquí están todos los módulos de tu auditoría. Haz clic en cada uno para completarlo." data-step="5">
+                    <div class="card-glass rounded-2xl p-6 sticky top-24" data-aos="fade-right">
+                        <h3 class="text-lg font-bold mb-4 flex items-center">
+                            <i class="fas fa-list-ul mr-2 text-primary"></i>
+                            Módulos
+                        </h3>
+                        
+                        <div class="space-y-2" id="modulesList">
+                            <!-- Se generará dinámicamente -->
+                        </div>
+                        
+                        <!-- Gráfico de progreso circular -->
+                        <div class="mt-8 text-center">
+                            <canvas id="progressChart" width="150" height="150"></canvas>
+                            <p class="text-sm text-gray-600 mt-4">Progreso General</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Área de contenido principal -->
+                <div class="lg:col-span-4">
+                    <div class="card-glass rounded-2xl p-8" data-aos="fade-left" data-intro="Esta es el área principal donde completarás cada módulo." data-step="6">
+                        
+                        <!-- Contenido de los módulos -->
+                        <div id="moduleContent">
+                            <!-- Módulo 1: Portada -->
+                            <div class="module-section active" data-module="1">
+                                <div class="flex items-center justify-between mb-6">
+                                    <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+                                        <i class="fas fa-file-alt mr-2"></i>
+                                        1. Datos de la Auditoría
+                                    </h3>
+                                    <span class="badge-pulse px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">
+                                        Requerido
+                                    </span>
+                                </div>
+                                
+                                <p class="text-gray-600 mb-8">
+                                    Complete la información general del trabajo de auditoría. Los campos marcados con * son obligatorios.
+                                </p>
+                                
+                                <form id="portadaForm" class="space-y-6">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                                Entidad auditada <span class="text-red-500">*</span>
+                                            </label>
+                                            <input type="text" 
+                                                   class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all"
+                                                   placeholder="Ej: Empresa Ejemplo S.A."
+                                                   required>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                                Unidad / área auditada <span class="text-red-500">*</span>
+                                            </label>
+                                            <input type="text" 
+                                                   class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all"
+                                                   placeholder="Ej: Gerencia de Tecnología"
+                                                   required>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                                Período evaluado <span class="text-red-500">*</span>
+                                            </label>
+                                            <input type="text" 
+                                                   class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all"
+                                                   placeholder="Ej: 01/01/2026 - 30/09/2026"
+                                                   required>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                                Auditor líder <span class="text-red-500">*</span>
+                                            </label>
+                                            <input type="text" 
+                                                   class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all"
+                                                   placeholder="Nombre del auditor principal"
+                                                   required>
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                                Equipo auditor
+                                            </label>
+                                            <input type="text" 
+                                                   class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all"
+                                                   placeholder="Auditor 1, Auditor 2">
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                                Fecha de inicio
+                                            </label>
+                                            <input type="date" 
+                                                   class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                                Fecha de cierre
+                                            </label>
+                                            <input type="date" 
+                                                   class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                                        </div>
+                                        
+                                        <div>
+                                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                                Versión del papel de trabajo
+                                            </label>
+                                            <input type="text" 
+                                                   class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg bg-gray-50"
+                                                   value="2.0"
+                                                   readonly>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                            Referencia normativa
+                                        </label>
+                                        <input type="text" 
+                                               class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg bg-gray-50"
+                                               value="COBIT 2019 (ISACA) - Marco de gobierno y gestión de I&T"
+                                               readonly>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                            Objetivo de la auditoría
+                                        </label>
+                                        <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all"
+                                                  rows="4">Evaluar el nivel de capacidad de los procesos de I&T y el cumplimiento de las prácticas de gestión frente a COBIT 2019.</textarea>
+                                    </div>
+                                </form>
+                                
+                                <!-- Info box -->
+                                <div class="mt-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg" data-aos="fade-up">
+                                    <div class="flex items-start">
+                                        <i class="fas fa-info-circle text-blue-500 text-xl mr-3 mt-1"></i>
+                                        <div>
+                                            <h4 class="font-semibold text-blue-900">Información importante</h4>
+                                            <p class="text-sm text-blue-700 mt-1">
+                                                Los campos con * son obligatorios. Complete todos los datos antes de continuar al siguiente módulo.
+                                                La información se guardará automáticamente cada 30 segundos.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- MÓDULO 2: Contexto -->
+<div class="module-section hidden" data-module="2">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-building mr-2"></i>
+            2. Contexto de la Organización
+        </h3>
+    </div>
+    
+    <form class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Sector / Industria <span class="text-red-500">*</span>
+                </label>
+                <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" required>
+                    <option value="">Seleccione...</option>
+                    <option value="financiero">Financiero</option>
+                    <option value="salud">Salud</option>
+                    <option value="educacion">Educación</option>
+                    <option value="gobierno">Gobierno</option>
+                    <option value="retail">Retail</option>
+                    <option value="manufactura">Manufactura</option>
+                    <option value="tecnologia">Tecnología</option>
+                    <option value="telecomunicaciones">Telecomunicaciones</option>
+                    <option value="energia">Energía</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Número de empleados
+                </label>
+                <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                    <option value="">Seleccione...</option>
+                    <option value="1-50">1-50</option>
+                    <option value="51-250">51-250</option>
+                    <option value="251-1000">251-1000</option>
+                    <option value="1001-5000">1001-5000</option>
+                    <option value=">5000">>5000</option>
+                </select>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Tamaño del área de TI
+                </label>
+                <input type="number" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Número de personas">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Presupuesto anual TI
+                </label>
+                <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                    <option value="">Seleccione...</option>
+                    <option value="<100k"><$100K</option>
+                    <option value="100k-500k">$100K-$500K</option>
+                    <option value="500k-1m">$500K-$1M</option>
+                    <option value="1m-5m">$1M-$5M</option>
+                    <option value=">5m">>$5M</option>
+                </select>
+            </div>
+        </div>
+        
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Marco regulatorio aplicable
+            </label>
+            <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="3" placeholder="ISO 27001, SOX, GDPR, HIPAA, PCI-DSS, etc."></textarea>
+        </div>
+        
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Estructura de gobierno de TI
+            </label>
+            <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="4" placeholder="Describa la estructura organizacional, comités, roles clave..."></textarea>
+        </div>
+        
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                Principales tecnologías utilizadas
+            </label>
+            <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="3" placeholder="ERP, CRM, bases de datos, cloud, etc."></textarea>
+        </div>
+    </form>
+</div>
+
+<!-- MÓDULO 3: Escalas de Evaluación -->
+<div class="module-section hidden" data-module="3">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-chart-line mr-2"></i>
+            3. Escalas de Evaluación COBIT
+        </h3>
+    </div>
+    
+    <div class="bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-xl mb-6">
+        <h4 class="text-xl font-bold mb-4 text-purple-900">
+            <i class="fas fa-layer-group mr-2"></i>
+            Niveles de Capacidad del Proceso
+        </h4>
+        
+        <div class="space-y-4">
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center text-2xl font-bold text-red-700 mr-4">0</div>
+                    <div>
+                        <h5 class="font-bold text-lg text-gray-900">Incompleto</h5>
+                        <p class="text-gray-600">El proceso no está implementado o falla en alcanzar su propósito.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-16 h-16 bg-orange-100 rounded-lg flex items-center justify-center text-2xl font-bold text-orange-700 mr-4">1</div>
+                    <div>
+                        <h5 class="font-bold text-lg text-gray-900">Realizado</h5>
+                        <p class="text-gray-600">El proceso alcanza su propósito.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-16 h-16 bg-yellow-100 rounded-lg flex items-center justify-center text-2xl font-bold text-yellow-700 mr-4">2</div>
+                    <div>
+                        <h5 class="font-bold text-lg text-gray-900">Gestionado</h5>
+                        <p class="text-gray-600">El proceso está implementado, monitoreado y ajustado de manera gestionada.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-16 h-16 bg-lime-100 rounded-lg flex items-center justify-center text-2xl font-bold text-lime-700 mr-4">3</div>
+                    <div>
+                        <h5 class="font-bold text-lg text-gray-900">Establecido</h5>
+                        <p class="text-gray-600">El proceso está implementado usando un proceso definido, capaz de lograr sus resultados.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center text-2xl font-bold text-green-700 mr-4">4</div>
+                    <div>
+                        <h5 class="font-bold text-lg text-gray-900">Predecible</h5>
+                        <p class="text-gray-600">El proceso opera dentro de límites definidos para lograr sus resultados.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-start">
+                    <div class="flex-shrink-0 w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center text-2xl font-bold text-blue-700 mr-4">5</div>
+                    <div>
+                        <h5 class="font-bold text-lg text-gray-900">Optimizado</h5>
+                        <p class="text-gray-600">El proceso se mejora continuamente para satisfacer las metas de negocio actuales y futuras.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl">
+        <h4 class="text-xl font-bold mb-4 text-blue-900">
+            <i class="fas fa-clipboard-check mr-2"></i>
+            Grado de Cumplimiento de Prácticas
+        </h4>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center mb-2">
+                    <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-semibold mr-3">N</span>
+                    <h5 class="font-bold text-gray-900">No Implementado (0%)</h5>
+                </div>
+                <p class="text-gray-600 text-sm ml-11">No hay evidencia de implementación.</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center mb-2">
+                    <span class="px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-sm font-semibold mr-3">P</span>
+                    <h5 class="font-bold text-gray-900">Parcial (1-50%)</h5>
+                </div>
+                <p class="text-gray-600 text-sm ml-11">Implementación iniciada o parcial.</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center mb-2">
+                    <span class="px-3 py-1 bg-yellow-100 text-yellow-700 rounded-full text-sm font-semibold mr-3">L</span>
+                    <h5 class="font-bold text-gray-900">Largamente (51-85%)</h5>
+                </div>
+                <p class="text-gray-600 text-sm ml-11">Implementado en su mayor parte.</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow-sm">
+                <div class="flex items-center mb-2">
+                    <span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-semibold mr-3">F</span>
+                    <h5 class="font-bold text-gray-900">Completo (86-100%)</h5>
+                </div>
+                <p class="text-gray-600 text-sm ml-11">Completamente implementado.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confirmación de lectura -->
+    <div class="mt-8 bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl border-2 border-green-200" data-aos="fade-up">
+        <form class="space-y-4">
+            <h4 class="text-lg font-bold text-green-900 mb-4">
+                <i class="fas fa-check-double mr-2"></i>
+                Confirmación de Entendimiento
+            </h4>
+            
+            <div class="space-y-3">
+                <label class="flex items-start p-4 bg-white rounded-lg cursor-pointer hover:shadow-md transition-all">
+                    <input type="checkbox" class="custom-checkbox mr-3 mt-1" id="confirm-scales-read" required>
+                    <div>
+                        <span class="font-semibold text-gray-900">He leído y comprendido las escalas de evaluación COBIT 2019</span>
+                        <p class="text-sm text-gray-600 mt-1">Confirmo que entiendo los 6 niveles de capacidad (0-5) y las 4 escalas de cumplimiento (N, P, L, F).</p>
+                    </div>
+                </label>
+                
+                <label class="flex items-start p-4 bg-white rounded-lg cursor-pointer hover:shadow-md transition-all">
+                    <input type="checkbox" class="custom-checkbox mr-3 mt-1">
+                    <div>
+                        <span class="font-semibold text-gray-900">Utilizaré estas escalas de manera consistente</span>
+                        <p class="text-sm text-gray-600 mt-1">Me comprometo a aplicar estas escalas en todos los procesos evaluados.</p>
+                    </div>
+                </label>
+            </div>
+            
+            <div class="flex items-center justify-between pt-4 border-t-2 border-green-200">
+                <div class="flex items-center space-x-2 text-green-700">
+                    <i class="fas fa-lightbulb text-xl"></i>
+                    <span class="text-sm font-medium">Puedes consultar estas escalas en cualquier momento</span>
+                </div>
+                <button type="button" onclick="window.print()" class="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-all hover-lift">
+                    <i class="fas fa-print mr-2"></i>
+                    Imprimir
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- MÓDULO 4: Factores de Diseño -->
+<div class="module-section hidden" data-module="4">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-cogs mr-2"></i>
+            4. Factores de Diseño
+        </h3>
+    </div>
+    
+    <p class="text-gray-600 mb-6">Los factores de diseño ayudan a personalizar el sistema de gobierno de TI según el contexto de la organización.</p>
+    
+    <form class="space-y-8">
+        <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100">
+            <h4 class="text-lg font-bold mb-4 text-purple-900 flex items-center">
+                <i class="fas fa-building mr-2"></i>
+                Estrategia Empresarial
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Orientación estratégica</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="crecimiento">Crecimiento</option>
+                        <option value="estabilidad">Estabilidad</option>
+                        <option value="transformacion">Transformación</option>
+                        <option value="innovacion">Innovación</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Rol de TI en la estrategia</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="soporte">Soporte operativo</option>
+                        <option value="facilitador">Facilitador del negocio</option>
+                        <option value="estrategico">Socio estratégico</option>
+                        <option value="diferenciador">Diferenciador competitivo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100">
+            <h4 class="text-lg font-bold mb-4 text-purple-900 flex items-center">
+                <i class="fas fa-bullseye mr-2"></i>
+                Objetivos Empresariales
+            </h4>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Objetivos de negocio prioritarios (seleccione hasta 5)</label>
+                <div class="space-y-2 max-h-64 overflow-y-auto p-4 bg-gray-50 rounded-lg">
+                    <label class="flex items-center p-2 hover:bg-white rounded cursor-pointer transition-all">
+                        <input type="checkbox" class="custom-checkbox mr-3">
+                        <span>Cumplimiento de leyes y regulaciones externas</span>
+                    </label>
+                    <label class="flex items-center p-2 hover:bg-white rounded cursor-pointer transition-all">
+                        <input type="checkbox" class="custom-checkbox mr-3">
+                        <span>Calidad de la información para la toma de decisiones</span>
+                    </label>
+                    <label class="flex items-center p-2 hover:bg-white rounded cursor-pointer transition-all">
+                        <input type="checkbox" class="custom-checkbox mr-3">
+                        <span>Gestión del riesgo empresarial</span>
+                    </label>
+                    <label class="flex items-center p-2 hover:bg-white rounded cursor-pointer transition-all">
+                        <input type="checkbox" class="custom-checkbox mr-3">
+                        <span>Optimización de la funcionalidad de servicios de negocio</span>
+                    </label>
+                    <label class="flex items-center p-2 hover:bg-white rounded cursor-pointer transition-all">
+                        <input type="checkbox" class="custom-checkbox mr-3">
+                        <span>Optimización de costos de entrega de servicios</span>
+                    </label>
+                    <label class="flex items-center p-2 hover:bg-white rounded cursor-pointer transition-all">
+                        <input type="checkbox" class="custom-checkbox mr-3">
+                        <span>Agilidad empresarial</span>
+                    </label>
+                    <label class="flex items-center p-2 hover:bg-white rounded cursor-pointer transition-all">
+                        <input type="checkbox" class="custom-checkbox mr-3">
+                        <span>Cultura de innovación orientada al cliente</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100">
+            <h4 class="text-lg font-bold mb-4 text-purple-900 flex items-center">
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                Perfil de Riesgo
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Apetito de riesgo organizacional</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="conservador">Conservador</option>
+                        <option value="moderado">Moderado</option>
+                        <option value="agresivo">Agresivo</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nivel de riesgo de TI actual</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="bajo">Bajo</option>
+                        <option value="medio">Medio</option>
+                        <option value="alto">Alto</option>
+                        <option value="critico">Crítico</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100">
+            <h4 class="text-lg font-bold mb-4 text-purple-900 flex items-center">
+                <i class="fas fa-code mr-2"></i>
+                Implementación de TI
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Modelo de implementación</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="on-premise">On-premise</option>
+                        <option value="cloud">Cloud</option>
+                        <option value="hibrido">Híbrido</option>
+                        <option value="outsourcing">Outsourcing</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Metodología de desarrollo</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="waterfall">Cascada (Waterfall)</option>
+                        <option value="agile">Ágil (Agile/Scrum)</option>
+                        <option value="devops">DevOps</option>
+                        <option value="mixto">Mixto</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- MÓDULO 5: Alcance de la Auditoría -->
+<div class="module-section hidden" data-module="5">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-crosshairs mr-2"></i>
+            5. Alcance de la Auditoría
+        </h3>
+    </div>
+    
+    <form class="space-y-6">
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-3">
+                <i class="fas fa-check-square text-purple-600 mr-2"></i>
+                Dominios COBIT a evaluar <span class="text-red-500">*</span>
+            </label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gradient-to-r from-blue-50 to-blue-100 p-4 rounded-lg border-2 border-blue-200">
+                    <label class="flex items-start cursor-pointer">
+                        <input type="checkbox" class="custom-checkbox mr-3 mt-1" checked>
+                        <div>
+                            <span class="font-bold text-blue-900">EDM - Evaluar, Dirigir y Monitorear</span>
+                            <p class="text-sm text-blue-700 mt-1">5 objetivos de gobierno</p>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="bg-gradient-to-r from-green-50 to-green-100 p-4 rounded-lg border-2 border-green-200">
+                    <label class="flex items-start cursor-pointer">
+                        <input type="checkbox" class="custom-checkbox mr-3 mt-1" checked>
+                        <div>
+                            <span class="font-bold text-green-900">APO - Alinear, Planificar y Organizar</span>
+                            <p class="text-sm text-green-700 mt-1">14 objetivos de gestión</p>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="bg-gradient-to-r from-purple-50 to-purple-100 p-4 rounded-lg border-2 border-purple-200">
+                    <label class="flex items-start cursor-pointer">
+                        <input type="checkbox" class="custom-checkbox mr-3 mt-1" checked>
+                        <div>
+                            <span class="font-bold text-purple-900">BAI - Construir, Adquirir e Implementar</span>
+                            <p class="text-sm text-purple-700 mt-1">11 objetivos de gestión</p>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="bg-gradient-to-r from-orange-50 to-orange-100 p-4 rounded-lg border-2 border-orange-200">
+                    <label class="flex items-start cursor-pointer">
+                        <input type="checkbox" class="custom-checkbox mr-3 mt-1" checked>
+                        <div>
+                            <span class="font-bold text-orange-900">DSS - Entregar, Dar Servicio y Soporte</span>
+                            <p class="text-sm text-orange-700 mt-1">6 objetivos de gestión</p>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="bg-gradient-to-r from-red-50 to-red-100 p-4 rounded-lg border-2 border-red-200">
+                    <label class="flex items-start cursor-pointer">
+                        <input type="checkbox" class="custom-checkbox mr-3 mt-1" checked>
+                        <div>
+                            <span class="font-bold text-red-900">MEA - Monitorear, Evaluar y Valorar</span>
+                            <p class="text-sm text-red-700 mt-1">4 objetivos de gestión</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div>
+            <label class="block text-sm font-semibold text-gray-700 mb-3">
+                <i class="fas fa-list-ol text-purple-600 mr-2"></i>
+                Procesos específicos a evaluar
+            </label>
+            <div class="bg-gray-50 p-4 rounded-lg max-h-96 overflow-y-auto">
+                <div class="space-y-2">
+                    <div class="bg-white p-3 rounded shadow-sm">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mr-3">
+                            <span><strong>EDM01</strong> - Asegurar el establecimiento y mantenimiento del marco de gobierno</span>
+                        </label>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mr-3">
+                            <span><strong>EDM02</strong> - Asegurar la entrega de beneficios</span>
+                        </label>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mr-3">
+                            <span><strong>EDM03</strong> - Asegurar la optimización del riesgo</span>
+                        </label>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mr-3">
+                            <span><strong>APO01</strong> - Gestionar el marco de gestión de TI</span>
+                        </label>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mr-3">
+                            <span><strong>APO02</strong> - Gestionar la estrategia</span>
+                        </label>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mr-3">
+                            <span><strong>APO07</strong> - Gestionar los recursos humanos</span>
+                        </label>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mr-3">
+                            <span><strong>APO13</strong> - Gestionar la seguridad</span>
+                        </label>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mr-3">
+                            <span><strong>BAI02</strong> - Gestionar la definición de requisitos</span>
+                        </label>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mr-3">
+                            <span><strong>BAI06</strong> - Gestionar los cambios</span>
+                        </label>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mr-3">
+                            <span><strong>DSS05</strong> - Gestionar los servicios de seguridad</span>
+                        </label>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow-sm">
+                        <label class="flex items-center cursor-pointer">
+                            <input type="checkbox" class="custom-checkbox mr-3">
+                            <span><strong>MEA01</strong> - Monitorear, evaluar y valorar el rendimiento y la conformidad</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Áreas / Departamentos incluidos
+                </label>
+                <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="4" placeholder="TI, Seguridad, Desarrollo, Infraestructura, etc."></textarea>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Exclusiones del alcance
+                </label>
+                <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="4" placeholder="Áreas, sistemas o procesos excluidos de la auditoría"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- MÓDULO 6: Evaluación de Riesgos -->
+<div class="module-section hidden" data-module="6">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            6. Evaluación de Riesgos
+        </h3>
+    </div>
+    
+    <div class="mb-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-lg">
+        <p class="text-yellow-800">
+            <i class="fas fa-exclamation-triangle mr-2"></i>
+            Identifique y evalúe los riesgos clave de TI que pueden afectar los objetivos del negocio.
+        </p>
+    </div>
+    
+    <div id="risksList" class="space-y-4 mb-6">
+        <!-- Riesgo 1 -->
+        <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100">
+            <div class="flex justify-between items-start mb-4">
+                <h4 class="text-lg font-bold text-gray-900">Riesgo #1</h4>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Descripción del riesgo</label>
+                    <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="2" placeholder="Describa el riesgo identificado"></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Categoría</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="seguridad">Seguridad de la información</option>
+                        <option value="disponibilidad">Disponibilidad</option>
+                        <option value="cumplimiento">Cumplimiento</option>
+                        <option value="operacional">Operacional</option>
+                        <option value="financiero">Financiero</option>
+                        <option value="reputacional">Reputacional</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Proceso COBIT relacionado</label>
+                    <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Ej: APO13, DSS05">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Probabilidad</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="1">1 - Muy baja</option>
+                        <option value="2">2 - Baja</option>
+                        <option value="3">3 - Media</option>
+                        <option value="4">4 - Alta</option>
+                        <option value="5">5 - Muy alta</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Impacto</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="1">1 - Muy bajo</option>
+                        <option value="2">2 - Bajo</option>
+                        <option value="3">3 - Medio</option>
+                        <option value="4">4 - Alto</option>
+                        <option value="5">5 - Muy alto</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Controles existentes</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="inexistentes">Inexistentes</option>
+                        <option value="debiles">Débiles</option>
+                        <option value="adecuados">Adecuados</option>
+                        <option value="fuertes">Fuertes</option>
+                    </select>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Estrategia de tratamiento</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="mitigar">Mitigar</option>
+                        <option value="transferir">Transferir</option>
+                        <option value="aceptar">Aceptar</option>
+                        <option value="evitar">Evitar</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MÓDULO 7: Recopilación de Evidencias -->
+<div class="module-section hidden" data-module="7">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-folder-open mr-2"></i>
+            7. Recopilación de Evidencias
+        </h3>
+    </div>
+    
+    <form class="space-y-6">
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl">
+            <h4 class="text-lg font-bold mb-4 text-blue-900">
+                <i class="fas fa-clipboard-list mr-2"></i>
+                Técnicas de Auditoría Utilizadas
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <label class="flex items-center p-3 bg-white rounded-lg cursor-pointer hover:shadow-md transition-all">
+                    <input type="checkbox" class="custom-checkbox mr-3" checked>
+                    <span>Entrevistas con personal clave</span>
+                </label>
+                <label class="flex items-center p-3 bg-white rounded-lg cursor-pointer hover:shadow-md transition-all">
+                    <input type="checkbox" class="custom-checkbox mr-3" checked>
+                    <span>Revisión documental</span>
+                </label>
+                <label class="flex items-center p-3 bg-white rounded-lg cursor-pointer hover:shadow-md transition-all">
+                    <input type="checkbox" class="custom-checkbox mr-3">
+                    <span>Observación directa</span>
+                </label>
+                <label class="flex items-center p-3 bg-white rounded-lg cursor-pointer hover:shadow-md transition-all">
+                    <input type="checkbox" class="custom-checkbox mr-3">
+                    <span>Pruebas de controles</span>
+                </label>
+                <label class="flex items-center p-3 bg-white rounded-lg cursor-pointer hover:shadow-md transition-all">
+                    <input type="checkbox" class="custom-checkbox mr-3">
+                    <span>Análisis de datos</span>
+                </label>
+                <label class="flex items-center p-3 bg-white rounded-lg cursor-pointer hover:shadow-md transition-all">
+                    <input type="checkbox" class="custom-checkbox mr-3">
+                    <span>Walkthroughs de procesos</span>
+                </label>
+                <label class="flex items-center p-3 bg-white rounded-lg cursor-pointer hover:shadow-md transition-all">
+                    <input type="checkbox" class="custom-checkbox mr-3">
+                    <span>Revisión de logs y registros</span>
+                </label>
+                <label class="flex items-center p-3 bg-white rounded-lg cursor-pointer hover:shadow-md transition-all">
+                    <input type="checkbox" class="custom-checkbox mr-3">
+                    <span>Cuestionarios de autoevaluación</span>
+                </label>
+            </div>
+        </div>
+        
+        <div>
+            <h4 class="text-lg font-bold mb-4 text-gray-900">
+                <i class="fas fa-folder-open mr-2"></i>
+                Registro de Evidencias
+            </h4>
+            
+            <div id="evidencesList" class="space-y-4 mb-4">
+                <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100">
+                    <h5 class="font-bold text-gray-900 mb-4">Evidencia #1</h5>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Proceso COBIT</label>
+                            <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Ej: APO01">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Tipo de evidencia</label>
+                            <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                                <option value="">Seleccione...</option>
+                                <option value="documento">Documento</option>
+                                <option value="registro">Registro/Log</option>
+                                <option value="captura">Captura de pantalla</option>
+                                <option value="acta">Acta de reunión</option>
+                                <option value="correo">Correo electrónico</option>
+                                <option value="politica">Política/Procedimiento</option>
+                                <option value="reporte">Reporte</option>
+                            </select>
+                        </div>
+                        
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Descripción</label>
+                            <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="2" placeholder="Descripción de la evidencia obtenida"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Fuente</label>
+                            <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Nombre del documento o sistema">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha de obtención</label>
+                            <input type="date" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- MÓDULO 8: Programa de Auditoría -->
+<div class="module-section hidden" data-module="8">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-tasks mr-2"></i>
+            8. Programa de Auditoría
+        </h3>
+    </div>
+    
+    <div class="mb-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded-lg">
+        <p class="text-blue-800">
+            <i class="fas fa-info-circle mr-2"></i>
+            Defina el plan detallado de actividades de auditoría para cada proceso COBIT evaluado.
+        </p>
+    </div>
+    
+    <div id="auditProgramList" class="space-y-4 mb-4">
+        <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100">
+            <h4 class="text-lg font-bold text-gray-900 mb-4">Actividad de Auditoría #1</h4>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Proceso COBIT</label>
+                    <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Ej: EDM01">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Práctica de gestión</label>
+                    <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Ej: EDM01.01">
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Objetivo de la prueba</label>
+                    <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="2" placeholder="Qué se busca verificar"></textarea>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Procedimiento de auditoría</label>
+                    <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="3" placeholder="Pasos detallados del procedimiento"></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Técnica</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="entrevista">Entrevista</option>
+                        <option value="inspeccion">Inspección documental</option>
+                        <option value="observacion">Observación</option>
+                        <option value="prueba">Prueba de control</option>
+                        <option value="analisis">Análisis</option>
+                        <option value="walkthrough">Walkthrough</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Responsable</label>
+                    <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Nombre del auditor">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha planificada</label>
+                    <input type="date" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Estado</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="pendiente">Pendiente</option>
+                        <option value="en-proceso">En proceso</option>
+                        <option value="completado">Completado</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MÓDULO 9: Plan de Muestreo -->
+<div class="module-section hidden" data-module="9">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-random mr-2"></i>
+            9. Plan de Muestreo
+        </h3>
+    </div>
+    
+    <form class="space-y-6">
+        <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-xl">
+            <h4 class="text-lg font-bold mb-4 text-purple-900">
+                <i class="fas fa-random mr-2"></i>
+                Metodología de Muestreo
+            </h4>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Enfoque de muestreo</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="estadistico">Estadístico</option>
+                        <option value="no-estadistico">No estadístico (juicio)</option>
+                        <option value="mixto">Mixto</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nivel de confianza</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="90">90%</option>
+                        <option value="95" selected>95%</option>
+                        <option value="99">99%</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Criterios de selección de muestra</label>
+                <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="3" placeholder="Describa los criterios utilizados para seleccionar las muestras"></textarea>
+            </div>
+        </div>
+        
+        <div id="samplingList" class="space-y-4">
+            <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100">
+                <h5 class="font-bold text-gray-900 mb-4">Población y Muestra #1</h5>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Proceso COBIT</label>
+                        <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Ej: BAI06">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Control/Actividad a muestrear</label>
+                        <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Ej: Aprobación de cambios">
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Descripción de la población</label>
+                        <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="2" placeholder="Qué se está muestreando"></textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tamaño de la población</label>
+                        <input type="number" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Total de elementos">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tamaño de la muestra</label>
+                        <input type="number" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Elementos a revisar">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Método de selección</label>
+                        <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                            <option value="">Seleccione...</option>
+                            <option value="aleatorio">Aleatorio simple</option>
+                            <option value="sistematico">Sistemático</option>
+                            <option value="estratificado">Estratificado</option>
+                            <option value="juicio">Por juicio</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- MÓDULO 10: Evaluación de Capacidad -->
+<div class="module-section hidden" data-module="10">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-chart-bar mr-2"></i>
+            10. Evaluación de Capacidad de Procesos
+        </h3>
+    </div>
+    
+    <div class="mb-6 bg-gradient-to-r from-green-50 to-teal-50 p-6 rounded-xl">
+        <h4 class="text-lg font-bold mb-2 text-green-900">
+            <i class="fas fa-chart-bar mr-2"></i>
+            Evaluación según Modelo de Capacidad COBIT
+        </h4>
+        <p class="text-green-800">Evalúe el nivel de capacidad de cada proceso COBIT seleccionado usando la escala de 0 a 5.</p>
+    </div>
+    
+    <div id="capabilityList" class="space-y-6">
+        <!-- Proceso 1 -->
+        <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-purple-100">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Proceso COBIT</label>
+                    <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all font-bold" placeholder="Ej: EDM01">
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nombre del proceso</label>
+                    <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Ej: Asegurar el establecimiento del marco de gobierno">
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nivel de capacidad actual</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="0">0 - Incompleto</option>
+                        <option value="1">1 - Realizado</option>
+                        <option value="2">2 - Gestionado</option>
+                        <option value="3">3 - Establecido</option>
+                        <option value="4">4 - Predecible</option>
+                        <option value="5">5 - Optimizado</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Nivel de capacidad objetivo</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="1">1 - Realizado</option>
+                        <option value="2">2 - Gestionado</option>
+                        <option value="3">3 - Establecido</option>
+                        <option value="4">4 - Predecible</option>
+                        <option value="5">5 - Optimizado</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Observaciones y evidencias</label>
+                <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="3" placeholder="Describa las observaciones clave y evidencias que soportan la evaluación"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MÓDULO 11: Hallazgos de Auditoría -->
+<div class="module-section hidden" data-module="11">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-search mr-2"></i>
+            11. Hallazgos de Auditoría
+        </h3>
+    </div>
+    
+    <div class="mb-6 bg-red-50 border-l-4 border-red-500 p-4 rounded-lg">
+        <p class="text-red-800">
+            <i class="fas fa-exclamation-circle mr-2"></i>
+            Documente los hallazgos identificados durante la auditoría, incluyendo brechas y oportunidades de mejora.
+        </p>
+    </div>
+    
+    <div id="findingsList" class="space-y-6 mb-6">
+        <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100">
+            <h4 class="text-lg font-bold text-gray-900 mb-4">Hallazgo #1</h4>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Proceso COBIT relacionado</label>
+                    <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Ej: APO13">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Severidad</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="critica">Crítica</option>
+                        <option value="alta">Alta</option>
+                        <option value="media">Media</option>
+                        <option value="baja">Baja</option>
+                    </select>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Título del hallazgo</label>
+                    <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Título descriptivo del hallazgo">
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Condición (Lo que es)</label>
+                    <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="3" placeholder="Describa la situación actual encontrada"></textarea>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Criterio (Lo que debería ser)</label>
+                    <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="2" placeholder="Estándar, política o buena práctica esperada"></textarea>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Causa (Por qué existe la brecha)</label>
+                    <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="2" placeholder="Razón de la condición encontrada"></textarea>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Efecto (Impacto o riesgo)</label>
+                    <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="2" placeholder="Consecuencias potenciales o reales"></textarea>
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Recomendación</label>
+                    <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="3" placeholder="Acciones sugeridas para remediar el hallazgo"></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Categoría</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="control">Deficiencia de control</option>
+                        <option value="proceso">Deficiencia de proceso</option>
+                        <option value="cumplimiento">Incumplimiento normativo</option>
+                        <option value="mejora">Oportunidad de mejora</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Estado</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="abierto">Abierto</option>
+                        <option value="en-proceso">En proceso de remediación</option>
+                        <option value="cerrado">Cerrado</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MÓDULO 12: Plan de Acción -->
+<div class="module-section hidden" data-module="12">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-check-circle mr-2"></i>
+            12. Plan de Acción y Remediación
+        </h3>
+    </div>
+    
+    <div class="mb-6 bg-green-50 border-l-4 border-green-500 p-4 rounded-lg">
+        <p class="text-green-800">
+            <i class="fas fa-tasks mr-2"></i>
+            Defina el plan de acción para remediar los hallazgos y cerrar las brechas identificadas.
+        </p>
+    </div>
+    
+    <div id="actionPlanList" class="space-y-6 mb-6">
+        <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-gray-100">
+            <h4 class="text-lg font-bold text-gray-900 mb-4">Acción #1</h4>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Hallazgo relacionado</label>
+                    <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Referencia al hallazgo">
+                </div>
+                
+                <div class="md:col-span-2">
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Acción correctiva propuesta</label>
+                    <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="3" placeholder="Describa la acción específica a implementar"></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Responsable</label>
+                    <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Nombre y cargo">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Área responsable</label>
+                    <input type="text" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="Departamento">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha de compromiso</label>
+                    <input type="date" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Prioridad</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="">Seleccione...</option>
+                        <option value="critica">Crítica (< 30 días)</option>
+                        <option value="alta">Alta (< 60 días)</option>
+                        <option value="media">Media (< 90 días)</option>
+                        <option value="baja">Baja (< 180 días)</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Estado de implementación</label>
+                    <select class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+                        <option value="no-iniciado">No iniciado</option>
+                        <option value="planificado">Planificado</option>
+                        <option value="en-progreso">En progreso</option>
+                        <option value="completado">Completado</option>
+                        <option value="retrasado">Retrasado</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Progreso (%)</label>
+                    <input type="number" min="0" max="100" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" placeholder="0-100">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MÓDULO 13: Resumen Ejecutivo -->
+<div class="module-section hidden" data-module="13">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-file-alt mr-2"></i>
+            13. Resumen Ejecutivo
+        </h3>
+    </div>
+    
+    <form class="space-y-6">
+        <div class="bg-gradient-to-r from-purple-50 via-pink-50 to-blue-50 p-6 rounded-xl">
+            <h4 class="text-lg font-bold mb-4 text-purple-900">
+                <i class="fas fa-file-alt mr-2"></i>
+                Información General
+            </h4>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Alcance de la auditoría</label>
+                    <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all bg-white" rows="3" placeholder="Resumen del alcance"></textarea>
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">Metodología aplicada</label>
+                    <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all bg-white" rows="3" placeholder="Descripción de la metodología"></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100">
+            <h4 class="text-lg font-bold mb-4 text-gray-900">
+                <i class="fas fa-lightbulb mr-2 text-yellow-500"></i>
+                Conclusiones Principales
+            </h4>
+            <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="6" placeholder="Principales conclusiones de la auditoría...&#10;&#10;1. Fortalezas identificadas&#10;2. Áreas de oportunidad&#10;3. Nivel general de madurez"></textarea>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gradient-to-br from-green-100 to-green-200 p-6 rounded-xl text-center">
+                <i class="fas fa-check-circle text-4xl text-green-700 mb-3"></i>
+                <h5 class="font-bold text-green-900 mb-2">Fortalezas</h5>
+                <input type="number" class="input-modern w-20 mx-auto px-4 py-2 border-2 border-green-300 rounded-lg text-center text-2xl font-bold" placeholder="0">
+            </div>
+            
+            <div class="bg-gradient-to-br from-yellow-100 to-yellow-200 p-6 rounded-xl text-center">
+                <i class="fas fa-exclamation-triangle text-4xl text-yellow-700 mb-3"></i>
+                <h5 class="font-bold text-yellow-900 mb-2">Oportunidades</h5>
+                <input type="number" class="input-modern w-20 mx-auto px-4 py-2 border-2 border-yellow-300 rounded-lg text-center text-2xl font-bold" placeholder="0">
+            </div>
+            
+            <div class="bg-gradient-to-br from-red-100 to-red-200 p-6 rounded-xl text-center">
+                <i class="fas fa-times-circle text-4xl text-red-700 mb-3"></i>
+                <h5 class="font-bold text-red-900 mb-2">Hallazgos Críticos</h5>
+                <input type="number" class="input-modern w-20 mx-auto px-4 py-2 border-2 border-red-300 rounded-lg text-center text-2xl font-bold" placeholder="0">
+            </div>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100">
+            <h4 class="text-lg font-bold mb-4 text-gray-900">
+                <i class="fas fa-star mr-2 text-purple-500"></i>
+                Recomendaciones Prioritarias
+            </h4>
+            <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="6" placeholder="Top 5 recomendaciones prioritarias:&#10;&#10;1. &#10;2. &#10;3. &#10;4. &#10;5. "></textarea>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100">
+            <h4 class="text-lg font-bold mb-4 text-gray-900">
+                <i class="fas fa-chart-line mr-2 text-blue-500"></i>
+                Siguiente Pasos
+            </h4>
+            <textarea class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all" rows="5" placeholder="Acciones inmediatas y próximos pasos..."></textarea>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha de emisión del informe</label>
+                <input type="date" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Fecha de seguimiento programada</label>
+                <input type="date" class="input-modern w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-primary focus:outline-none transition-all">
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- MÓDULO 14: Informe Final -->
+<div class="module-section hidden" data-module="14">
+    <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent">
+            <i class="fas fa-flag-checkered mr-2"></i>
+            14. Generación de Informe Final
+        </h3>
+    </div>
+    
+    <div class="bg-gradient-to-r from-purple-600 to-blue-600 text-white p-8 rounded-2xl mb-8 text-center">
+        <i class="fas fa-trophy text-6xl mb-4 opacity-80"></i>
+        <h4 class="text-2xl font-bold mb-2">¡Auditoría Completa!</h4>
+        <p class="text-purple-100">Ha completado todos los módulos de la auditoría COBIT 2019.</p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-purple-100">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-file-excel text-purple-600 text-xl"></i>
+                </div>
+                <div>
+                    <h5 class="font-bold text-gray-900">Exportar a Excel</h5>
+                    <p class="text-sm text-gray-600">Descarga completa en formato .xlsx</p>
+                </div>
+            </div>
+            <button onclick="downloadExcel()" class="w-full py-3 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:shadow-lg transition-all">
+                <i class="fas fa-download mr-2"></i>
+                Descargar Excel Completo
+            </button>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-lg border-2 border-blue-100">
+            <div class="flex items-center mb-4">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                    <i class="fas fa-file-pdf text-blue-600 text-xl"></i>
+                </div>
+                <div>
+                    <h5 class="font-bold text-gray-900">Exportar a PDF</h5>
+                    <p class="text-sm text-gray-600">Informe profesional en PDF</p>
+                </div>
+            </div>
+            <button onclick="downloadPDF()" class="w-full py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:shadow-lg transition-all">
+                <i class="fas fa-file-pdf mr-2"></i>
+                Generar Informe PDF
+            </button>
+        </div>
+    </div>
+    
+    <div class="bg-white p-6 rounded-xl shadow-sm border-2 border-gray-100 mb-6">
+        <h4 class="text-lg font-bold mb-4 text-gray-900">
+            <i class="fas fa-cog mr-2"></i>
+            Opciones de Exportación
+        </h4>
+        
+        <div class="space-y-3">
+            <label class="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-all">
+                <input type="checkbox" class="custom-checkbox mr-3" checked>
+                <span>Incluir gráficos y visualizaciones</span>
+            </label>
+            
+            <label class="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-all">
+                <input type="checkbox" class="custom-checkbox mr-3" checked>
+                <span>Incluir evidencias referenciadas</span>
+            </label>
+            
+            <label class="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-all">
+                <input type="checkbox" class="custom-checkbox mr-3" checked>
+                <span>Generar resumen ejecutivo</span>
+            </label>
+            
+            <label class="flex items-center p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-all">
+                <input type="checkbox" class="custom-checkbox mr-3">
+                <span>Incluir anexos técnicos</span>
+            </label>
+        </div>
+    </div>
+    
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl">
+        <h4 class="text-lg font-bold mb-4 text-blue-900">
+            <i class="fas fa-info-circle mr-2"></i>
+            Estadísticas de la Auditoría
+        </h4>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white p-4 rounded-lg text-center">
+                <div class="text-3xl font-bold text-purple-600" id="totalProcesses">0</div>
+                <div class="text-sm text-gray-600 mt-1">Procesos Evaluados</div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg text-center">
+                <div class="text-3xl font-bold text-blue-600" id="totalPractices">0</div>
+                <div class="text-sm text-gray-600 mt-1">Prácticas Revisadas</div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg text-center">
+                <div class="text-3xl font-bold text-yellow-600" id="totalFindings">0</div>
+                <div class="text-sm text-gray-600 mt-1">Hallazgos</div>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg text-center">
+                <div class="text-3xl font-bold text-green-600" id="totalActions">0</div>
+                <div class="text-sm text-gray-600 mt-1">Acciones Planificadas</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-8 text-center">
+        <button onclick="resetAudit()" class="px-6 py-3 border-2 border-red-300 text-red-600 rounded-lg hover:bg-red-50 transition-all">
+            <i class="fas fa-redo mr-2"></i>
+            Nueva Auditoría
+        </button>
+    </div>
+</div>
+
+                        </div>
+                        
+                        <!-- Botones de navegación -->
+                        <div class="flex justify-between mt-8 pt-6 border-t-2 border-gray-200">
+                            <button onclick="previousModule()" 
+                                    class="px-6 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                    id="btnPrevious"
+                                    disabled>
+                                <i class="fas fa-arrow-left mr-2"></i>
+                                Anterior
+                            </button>
+                            
+                            <div class="flex space-x-3">
+                                <button onclick="saveModule()" 
+                                        class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-all hover-lift">
+                                    <i class="fas fa-save mr-2"></i>
+                                    Guardar
+                                </button>
+                                
+                                <button onclick="nextModule()" 
+                                        class="btn-primary px-6 py-3 gradient-primary text-white rounded-lg hover:shadow-lg transition-all"
+                                        id="btnNext">
+                                    Siguiente
+                                    <i class="fas fa-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- Fin grid principal lg:grid-cols-5 -->
+            </div> <!-- Fin contenedor max-w-[1800px] -->
+        </div>
+    </div>
+    
+    <!-- Toast notifications -->
+    <div id="toastContainer" class="fixed bottom-6 right-6 z-50 space-y-3">
+        <!-- Los toasts se generarán dinámicamente -->
+    </div>
+    
+    <!-- Modal de confirmación de descarga -->
+    <div id="downloadModal" class="hidden fixed inset-0 z-50 modal-backdrop flex items-center justify-center">
+        <div class="bg-white rounded-2xl p-8 max-w-md mx-4 shadow-2xl" data-aos="zoom-in">
+            <div class="text-center">
+                <div class="w-20 h-20 mx-auto gradient-success rounded-full flex items-center justify-center mb-4">
+                    <i class="fas fa-check text-white text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold mb-2">¡Módulo Completado!</h3>
+                <p class="text-gray-600 mb-6">El módulo se ha guardado exitosamente y se ha descargado automáticamente.</p>
+                <button onclick="closeModal()" class="btn-primary px-8 py-3 gradient-primary text-white rounded-lg hover:shadow-lg transition-all">
+                    Continuar
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de Integrantes del Grupo -->
+    <div id="teamModal" class="hidden fixed inset-0 z-50 modal-backdrop flex items-center justify-center" onclick="closeTeamModal()">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-2xl mx-4 shadow-2xl" onclick="event.stopPropagation()" data-aos="zoom-in">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-2xl font-bold gradient-primary bg-clip-text text-transparent flex items-center">
+                    <i class="fas fa-users mr-3 text-purple-600"></i>
+                    Integrantes del Grupo
+                </h3>
+                <button onclick="closeTeamModal()" class="text-gray-400 hover:text-gray-600 text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-3 max-h-96 overflow-y-auto">
+                <div class="flex items-center p-4 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900 dark:to-indigo-900 rounded-lg hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">1</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white">Amoloto Diego</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Miembro del equipo</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900 dark:to-pink-900 rounded-lg hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">2</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white">Ayavaca Gustavo</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Miembro del equipo</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-4 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900 dark:to-emerald-900 rounded-lg hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">3</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white">Chicaiza Jeniffer</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Miembro del equipo</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-4 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900 dark:to-orange-900 rounded-lg hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">4</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white">Chicaiza Kelly</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Miembro del equipo</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-4 bg-gradient-to-r from-red-50 to-pink-50 dark:from-red-900 dark:to-pink-900 rounded-lg hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">5</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white">Guanoliquin Carlos</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Miembro del equipo</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-4 bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-900 dark:to-blue-900 rounded-lg hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">6</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white">Loachamin Gabriela</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Miembro del equipo</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-4 bg-gradient-to-r from-cyan-50 to-teal-50 dark:from-cyan-900 dark:to-teal-900 rounded-lg hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">7</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white">Quispe Neiser</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Miembro del equipo</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-4 bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-900 dark:to-rose-900 rounded-lg hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">8</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white">Sangucho Jeniffer</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Miembro del equipo</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-4 bg-gradient-to-r from-violet-50 to-purple-50 dark:from-violet-900 dark:to-purple-900 rounded-lg hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-violet-500 to-violet-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">9</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white">Tituaña Patricio</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Miembro del equipo</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-4 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900 dark:to-orange-900 rounded-lg hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">10</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white">Toaquiza William</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Miembro del equipo</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center p-4 bg-gradient-to-r from-lime-50 to-green-50 dark:from-lime-900 dark:to-green-900 rounded-lg hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-gradient-to-br from-lime-500 to-lime-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">11</div>
+                    <div>
+                        <p class="font-semibold text-gray-900 dark:text-white">Yanguicela Diego</p>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Miembro del equipo</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    <i class="fas fa-graduation-cap mr-2"></i>
+                    Auditoría COBIT 2019 - Proyecto de Grupo
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts personalizados -->
+    <script src="excel-templates.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
+
